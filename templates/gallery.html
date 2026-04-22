@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Gallery</title>
+  <style>
+    body { margin: 0; background: #111; color: #fff; font-family: sans-serif; }
+    .grid { 
+      display: grid; 
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+      gap: 10px; 
+      padding: 10px;
+    }
+    .grid img { width: 100%; height: auto; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="grid" id="gallery"></div>
+
+  <script>
+    fetch("data/portfolio.json")
+      .then(r => r.json())
+      .then(data => {
+        const container = document.getElementById("gallery");
+        data.images.forEach(img => {
+          const el = document.createElement("img");
+          el.src = img.url;
+          el.alt = img.title || "";
+          container.appendChild(el);
+        });
+      });
+  </script>
+</body>
+</html>
